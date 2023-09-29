@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sites', function (Blueprint $table) {
+        Schema::create('endpoints', function (Blueprint $table) {
             $table->uuid('id')->index();
-            $table->string('name', 150)->nullable(false);
-            $table->longText('description')->nullable(true)->default(null);
-            $table->foreignUuid('user_id')->index()->constrained('users');
+            $table->string('name');
+            $table->integer('http');
+            $table->integer('frequency');
+            $table->integer('frequency_interval');
+            $table->longText('payload')->nullable(true)->default(null);
+            $table->foreignUuid('site_id')->index()->constrained('sites');
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sites');
+        Schema::dropIfExists('endpoints');
     }
 };
