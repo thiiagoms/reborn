@@ -9,9 +9,8 @@ use App\Models\Site\Site;
 use App\Services\Sites\SiteService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
-class SiteController extends Controller
+final class SiteController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -90,6 +89,6 @@ class SiteController extends Controller
             return redirect()->route('dashboard.index')->with('message', $result['message']);
         }
 
-        return redirect()->route('dashboard.index')->with('error', "Faield to update site: {$oldName}");
+        return redirect()->route('dashboard.index')->with('error', "Faield to delete site: {$oldName}");
     }
 }

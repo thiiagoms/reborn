@@ -14,6 +14,7 @@ class SiteDTO
     public function __construct(
         public string $name,
         public string|null $description,
+        public string|null $user_id = null
     ) {
     }
 }
