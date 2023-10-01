@@ -15,7 +15,7 @@ class Site extends Model
     use HasFactory;
     use HasUuids;
 
-/**
+    /**
      * Mass insert fields
      *
      * @var array<string>
