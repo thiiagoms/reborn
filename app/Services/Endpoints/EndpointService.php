@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Services\Endpoints;
 
+use App\DTO\Check\CheckDTO;
 use App\DTO\Endpoints\EndpointDTO;
 use App\Enums\Frequency\FrequencyEnum;
 use App\Enums\HTTP\HTTPEnum;
 use App\Enums\Settings\SettingsEnum;
 use App\Models\Endpoints\Endpoint;
+use App\Services\Check\CheckService;
 use App\Services\Service;
+use App\Utils\DateUtil;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
@@ -63,6 +66,10 @@ final class EndpointService extends Service
             $endpoint = Endpoint::create((array) $endpointDTO);
 
             if ($endpoint instanceof Endpoint) {
+                $nextCheck = DateUtil::getDateDiff($endpoint->frequency, $endpoint->frequency_interval);
+
+                CheckService::store($endpoint->id, $endpoint->site_id, $nextCheck);
+
                 $result['message'] = "Endpoint {$endpointDTO->name} was created";
             }
         });
@@ -116,6 +123,7 @@ final class EndpointService extends Service
     public static function destroy(string $endpointUuid): array
     {
         $oldName = self::show($endpointUuid);
+
         $result = [];
 
         DB::transaction(function () use (&$result, $oldName, $endpointUuid): void {
