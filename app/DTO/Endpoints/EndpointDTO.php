@@ -21,7 +21,7 @@ class EndpointDTO
         public readonly int $frequency_interval,
         public string|null $payload,
         public readonly string|null $site_id = null,
-        public readonly string|null $id = null
+        public string|null $id = null
     ) {
     }
 }
