@@ -58,6 +58,7 @@ reborn $ docker-compose exec app npm ci
 reborn $ docker-compose exec app npm run build
 ```
 
+## Use
 06 -) Go to `http://localhost:8000`
 
-FY: ALL notifications are sending to mailhog (`http://localhost:8025`)
+FY: All notifications are sending to mailhog container (`http://localhost:8025`)
